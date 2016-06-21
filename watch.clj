@@ -1,4 +1,4 @@
-(require 'clj.build.api)
+(require 'cljs.build.api)
 (cljs.build.api/watch "src"
-  {:main 'sample-project.core
+  {:main 'etudes.core
 	 :output-to "out/main.js"})
