@@ -41,3 +41,7 @@
 				(println numerator)
 				(println denominator)
 				(* 60 D)))
+
+(defn move-zeros [interspersed]
+	(let [filtered-list (filter (fn [x] (not (zero? x))) interspersed)]
+	     (concat filtered-list (repeat (- (count interspersed) (count filtered-list)) 0))))
