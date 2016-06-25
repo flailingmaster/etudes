@@ -45,3 +45,34 @@
 (defn move-zeros [interspersed]
 	(let [filtered-list (filter (fn [x] (not (zero? x))) interspersed)]
 	     (concat filtered-list (repeat (- (count interspersed) (count filtered-list)) 0))))
+
+(defn ordinal-day
+  "Takes a day, month, and year as its three arguments and returns the ordinal (Julian) day of the year."
+	[day month year]
+	(if (legal-date? day month year)
+	  (println "legal")
+		0))
+
+(defn legal-date? [day month year]
+	(and (legal-year? year) (legal-month? month) (legal-day? day month year)))
+
+(defn legal-day?
+	[day month year]
+	(cond
+		(and (= month 2) (leap-year? year)) (and (>= day 1) (<= day 29))
+		(and (= month 2) (not (leap-year? year))) (and (>= day 1) (<= day 28))
+	  (or (= month 9) (= month 4) (= month 6) (= month 11)) (and (>= day 1) (<= day 30))
+		(or (= month 1) (= month 3) (= month 5) (= month 7)(= month 8) (= month 10)(= month 12)) (and (>= day 1) (<= day 31))
+		:else false
+	))
+
+(defn leap-year?
+      "Return true if given year is a leap year; false otherwise"
+      [year]
+      (or (and (= 0 (rem year 4)) (not= 0 (rem year 100)))
+        (= 0 (rem year 400))))
+
+(defn legal-year? [year]
+	(> year 1584))
+(defn legal-month? [month]
+	(and (>= month 1) (<= month 12)))
