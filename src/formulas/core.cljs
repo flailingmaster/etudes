@@ -50,7 +50,10 @@
   "Takes a day, month, and year as its three arguments and returns the ordinal (Julian) day of the year."
 	[day month year]
 	(if (legal-date? day month year)
-	  (println "legal")
+	  (let [feb-days (if (leap-year? year) 29 28)
+		      num-days [0 31 feb-days 31 30 31 30 31 31 30 31 30 31]
+					monthtotal (reduce + (take month num-days))]
+					(+ day monthtotal))
 		0))
 
 (defn legal-date? [day month year]
