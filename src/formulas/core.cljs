@@ -1,5 +1,6 @@
 (ns formulas.core
-	(:require [clojure.browser.repl :as repl]))
+	(:require [clojure.browser.repl :as repl]
+						[clojure.string :as str]))
 
 (defn distance [acc time]
 	(/ (* acc time time) 2.0))
@@ -26,8 +27,10 @@
 	(* (/ (.-PI js/Math) 180) degrees))
 
 (defn daylight
-	[latitude julian]
-	(let [r (radians latitude)
+	[latitude date]
+	(let [[year month day] (map #(js/parseInt %) (str/split date #"-"))
+	      julian (ordinal-day day month year)
+		    r (radians latitude)
 	      part1 (.atan js/Math (* 0.9671396 (.tan js/Math (* .00860 (- julian 186)))))
 	      P (.asin js/Math (* .39796
 					               (.cos js/Math
@@ -36,6 +39,14 @@
 				                                       (.sin js/Math P)))
 			  denominator (* (.cos js/Math r) (.cos js/Math P))
 				D (- 24 (* 7.63944 (.acos js/Math (/ numerator denominator))))]
+				(println year)
+				(println month)
+				(println day)
+				(println (legal-year? year))
+				(println (legal-month? month))
+				(println (legal-day? day month year))
+				(println julian)
+				(println r)
 				(println part1)
 				(println P)
 				(println numerator)
