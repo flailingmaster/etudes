@@ -42,12 +42,14 @@
 	))
 
 (defn leap-year?
-      "Return true if given year is a leap year; false otherwise"
-      [year]
-      (or (and (= 0 (rem year 4)) (not= 0 (rem year 100)))
-        (= 0 (rem year 400))))
+  "Return true if given year is a leap year; false otherwise"
+  [year]
+  (or (and (= 0 (rem year 4)) (not= 0 (rem year 100)))
+    (= 0 (rem year 400))))
 
-(defn legal-year? [year]
+(defn legal-year?
+	"Etude requirement is that years are greater than 1584"
+	[year]
 	(> year 1584))
 (defn legal-month? [month]
 	(and (>= month 1) (<= month 12)))
@@ -55,6 +57,7 @@
 
 
 (defn daylight
+	"Given latitude and a Gregorian date, returns minutes of daylight."
 	[latitude date]
 	(let [[year month day] (map #(js/parseInt %) (str/split date #"-"))
 				julian (ordinal-day day month year)
@@ -71,7 +74,9 @@
 (defn get-float [field]
 (.parseFloat js/window (.-value (dom/getElement field))))
 
-(defn testing [evt]
+(defn testing
+	"Mostly bullshit"
+	[evt]
 	(let [gregorian (.parseFloat js/window (.-value (dom/getElement "gregorian")))
 		    latitude (get-float "latitude")
 				result (daylight latitude julian)]

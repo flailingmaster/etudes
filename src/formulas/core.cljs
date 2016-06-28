@@ -39,18 +39,6 @@
 				                                       (.sin js/Math P)))
 			  denominator (* (.cos js/Math r) (.cos js/Math P))
 				D (- 24 (* 7.63944 (.acos js/Math (/ numerator denominator))))]
-				(println year)
-				(println month)
-				(println day)
-				(println (legal-year? year))
-				(println (legal-month? month))
-				(println (legal-day? day month year))
-				(println julian)
-				(println r)
-				(println part1)
-				(println P)
-				(println numerator)
-				(println denominator)
 				(* 60 D)))
 
 (defn move-zeros [interspersed]
