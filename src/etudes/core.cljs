@@ -83,4 +83,19 @@
 				(dom/setTextContent (dom/getElement "result") result)
 				))
 
+(defn mean
+  "Calculates the arithmetic average of the list"
+	[integers]
+	(/ (apply + integers) (count integers))
+	)
+
+(defn median
+	"Calculates the median of the numbers"
+	[integers]
+	(let [n (count integers)
+	      stub (drop (- (int (/ n 2)) 1) integers)]
+	    (if (even? n)
+			  (/ (+ (first stub) (second stub)) 2)
+				(first stub))))
+
 (events/listen (dom/getElement "calculate") "click" testing)
