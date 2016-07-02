@@ -98,4 +98,11 @@
 			  (/ (+ (first stub) (second stub)) 2)
 				(first stub))))
 
+(defn fib
+	"Exercise in mental recursion"
+	[n]
+	(cond (= n 0) 0
+	 		  (= n 1) 1
+				:else (+ (fib (- n 1)) (fib (- n 2)))))
+
 (events/listen (dom/getElement "calculate") "click" testing)
