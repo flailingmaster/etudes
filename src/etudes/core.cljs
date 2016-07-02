@@ -98,6 +98,14 @@
 			  (/ (+ (first stub) (second stub)) 2)
 				(first stub))))
 
+(defn stdev
+	"Calculates the standard deviation"
+	[integers]
+	(let [sum-of-squares (apply + (map #(* % %) integers))
+	      square-of-sums (apply + integers)
+				n (count integers)]
+				(.sqrt js/Math (/ (- sum-of-squares (/ (* square-of-sums square-of-sums) n)) (- n 1)))))
+
 (defn fib
 	"Exercise in mental recursion"
 	[n]
