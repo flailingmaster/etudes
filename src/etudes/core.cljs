@@ -113,4 +113,14 @@
 	 		  (= n 1) 1
 				:else (+ (fib (- n 1)) (fib (- n 2)))))
 
+(defn calculate
+  "Event handler"
+  [evt]
+  (let [numbers (map js/window.parseFloat
+    (str/split (.-value (.-target evt)) #"[, ]+"))]
+           (dom/setTextContent (dom/getElement "mean") (mean numbers))
+           (dom/setTextContent (dom/getElement "median") (median numbers))
+           (dom/setTextContent (dom/getElement "stdev") (stdev numbers))))
+
 (events/listen (dom/getElement "calculate") "click" testing)
+(events/listen (dom/getElement "numbers") "change" calculate)
