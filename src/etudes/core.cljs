@@ -122,5 +122,23 @@
            (dom/setTextContent (dom/getElement "median") (median numbers))
            (dom/setTextContent (dom/getElement "stdev") (stdev numbers))))
 
+(def pocket-depths
+  [[], [2 2 1 2 2 1], [3 1 2 3 2 3],
+  [3 1 3 2 1 2], [3 2 3 2 2 1], [2 3 1 2 1 1],
+  [3 1 3 2 3 2], [3 3 2 1 3 1], [4 3 3 2 3 3],
+  [3 1 1 3 2 2], [4 3 4 3 2 3], [2 3 1 3 2 2],
+  [1 2 1 1 3 2], [1 2 2 3 2 3], [1 3 2 1 3 3], [],
+  [3 2 3 1 1 2], [2 2 1 1 3 2], [2 1 1 1 1 2],
+  [3 3 2 1 1 3], [3 1 3 2 3 2], [3 3 1 2 3 3],
+  [1 2 2 3 3 3], [2 2 3 2 3 3], [2 2 2 4 3 4],
+  [3 4 3 3 3 4], [1 1 2 3 1 2], [2 2 3 2 1 3],
+  [3 4 2 4 4 3], [3 3 2 1 2 3], [2 2 2 2 3 3],
+  [3 2 3 2 3 2]])
+
+(def contains-pockets
+	"Given a vector of values, returns a vector of booleans"
+	[sequence]
+	(map #(> % 4) sequence))
+
 (events/listen (dom/getElement "calculate") "click" testing)
 (events/listen (dom/getElement "numbers") "change" calculate)
