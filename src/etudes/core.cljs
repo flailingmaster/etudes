@@ -135,10 +135,22 @@
   [3 4 2 4 4 3], [3 3 2 1 2 3], [2 2 2 2 3 3],
   [3 2 3 2 3 2]])
 
-(def contains-pockets
+(defn bad-tooth
+"Accumulator: vector of bad tooth numbers and current index"
+[[bad-list index] tooth]
+(if (some (fn[x] (>= x 4)) tooth)
+        (vector (conj bad-list index) (inc index))
+        (vector bad-list (inc index))))
+
+(defn contains-pockets
 	"Given a vector of values, returns a vector of booleans"
 	[sequence]
-	(map #(> % 4) sequence))
+	(reduce #(or %2 %1) (map #(>= % 4) sequence)))
+
+(defn alert
+	"Display tooth numbers where any of the pocket depths is 4 or greater."
+	[depths]
+	(filter #(not= -1 %) (map-indexed (fn [idx itm] (if itm (+ 1 idx) -1)) (map contains-pockets depths))))
 
 (events/listen (dom/getElement "calculate") "click" testing)
 (events/listen (dom/getElement "numbers") "change" calculate)
