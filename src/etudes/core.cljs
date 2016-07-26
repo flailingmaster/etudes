@@ -138,12 +138,12 @@
 (defn contains-pockets
 	"Given a vector of values, returns a vector of booleans"
 	[sequence]
-	(reduce #(or %2 %1) (map #(>= % 4) sequence)))
+	(filter #(>= % 4) sequence))
 
 (defn alert
 	"Display tooth numbers where any of the pocket depths is 4 or greater."
 	[depths]
-	(filter #(not= -1 %) (map-indexed (fn [idx itm] (if (contains-pockets itm) (+ 1 idx) -1)) depths)))
+	(filter #(not= -1 %) (map-indexed (fn [idx itm] (if (not-empty (contains-pockets itm)) (+ 1 idx) -1)) depths)))
 
 (events/listen (dom/getElement "calculate") "click" testing)
 (events/listen (dom/getElement "numbers") "change" calculate)
