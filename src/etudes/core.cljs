@@ -143,7 +143,7 @@
 (defn alert
 	"Display tooth numbers where any of the pocket depths is 4 or greater."
 	[depths]
-	(filter #(not= -1 %) (map-indexed (fn [idx itm] (if itm (+ 1 idx) -1)) (map contains-pockets depths))))
+	(filter #(not= -1 %) (map-indexed (fn [idx itm] (if (contains-pockets itm) (+ 1 idx) -1)) depths)))
 
 (events/listen (dom/getElement "calculate") "click" testing)
 (events/listen (dom/getElement "numbers") "change" calculate)
