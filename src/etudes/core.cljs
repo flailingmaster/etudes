@@ -95,7 +95,10 @@
 		(dom/setTextContent (dom/getElement "umenu") menu)
 		(dom/setTextContent (dom/getElement "uspecified") userspecified)
 		(dom/setTextContent (dom/getElement "other") ulatitude)
-
+		(dotimes [month 12]
+			(let [monthstring (.toString month)
+			     elid (join "" ["m" monthstring])]
+			(dom/setTextContent (dom/getElement "m1") elid)))
 		)
 )
 
