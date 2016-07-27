@@ -55,8 +55,6 @@
 (defn legal-month? [month]
 	(and (>= month 1) (<= month 12)))
 
-
-
 (defn daylight
 	"Given latitude and a Gregorian date, returns minutes of daylight."
 	[latitude date]
@@ -96,9 +94,9 @@
 		(dom/setTextContent (dom/getElement "uspecified") userspecified)
 		(dom/setTextContent (dom/getElement "other") ulatitude)
 		(dotimes [month 12]
-			(let [monthstring (.toString month)
-			     elid (join "" ["m" monthstring])]
-			(dom/setTextContent (dom/getElement "m1") elid)))
+			(let [monthstring (.toString (+ 1 month))
+			     elid (str/join "" ["m" monthstring])]
+			(dom/setTextContent (dom/getElement elid) elid)))
 		)
 )
 
