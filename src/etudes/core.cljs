@@ -2,7 +2,8 @@
 	(:require [clojure.browser.repl :as repl]
 		        [goog.dom :as dom]
 						[goog.events :as events]
-						[clojure.string :as str]))
+						[clojure.string :as str]
+						[goog.dom.forms :as gforms]))
 
 (defonce conn
 	(repl/connect "http://localhost:9000/repl"))
@@ -83,6 +84,22 @@
 				(dom/setTextContent (dom/getElement "result") result)
 				))
 
+(defn monthsum
+  "Event Handler for Month Summary of Daylight"
+	[evt]
+	(let [city (.parseFloat js/window (.-value (dom/getElement "cityMenu")))
+				menu (.-checked (dom/getElement "menu"))
+				userspecified (.-checked (dom/getElement "userSpecified"))
+				ulatitude (.-value (dom/getElement "ulatitude"))]
+		(dom/setTextContent (dom/getElement "ucity") city)
+		(dom/setTextContent (dom/getElement "umenu") menu)
+		(dom/setTextContent (dom/getElement "uspecified") userspecified)
+		(dom/setTextContent (dom/getElement "other") ulatitude)
+
+		)
+)
+
+
 (defn mean
   "Calculates the arithmetic average of the list"
 	[integers]
@@ -145,5 +162,6 @@
 	[depths]
 	(filter #(not= -1 %) (map-indexed (fn [idx itm] (if (not-empty (contains-pockets itm)) (+ 1 idx) -1)) depths)))
 
+(events/listen (dom/getElement "calculate2") "click" monthsum)
 (events/listen (dom/getElement "calculate") "click" testing)
 (events/listen (dom/getElement "numbers") "change" calculate)

@@ -19,6 +19,55 @@ Enter numbers, separated by blanks or commas: <input type="text" size="50" id="n
 <p>
 Mean: <span id="mean"></span><br />
 Median: <span id="median"></span><br /> Standard deviation: <span id="stdev"></span> </p>
+
+<h1>Amount of Daylight</h1>
+<p>
+<input type="radio" name="locationType" id="menu" checked="checked">
+<select id="cityMenu">
+<option value="39.9075">Beijing</option>
+<option value="52.52437">Berlin</option>
+<option value="-15.77972">Brasília</option>
+<option value="30.06263">Cairo</option>
+<option value="-35.28346">Canberra</option>
+<option value="-17.82772">Harare</option>
+<option value="-12.04318">Lima</option>
+<option value="51.50853">London</option>
+<option value="55.75222">Moscow</option>
+<option value="-1.28333">Nairobi</option>
+<option value="28.63576">New Delhi</option>
+<option value="12.36566">Ouagadougou</option>
+<option value="59.91273">Oslo</option>
+<option value="48.85341">Paris</option>
+<option value="35.6895">Tokyo</option>
+<option value="38.89511">Washington, D. C.</option>
+</select>
+<input type="radio" id="userSpecified" name="locationType"> Other latitude: <input type="text" size="8" id="ulatitude"/> <input type="button" value="Calculate" id="calculate2"/>
+</p>
+<h2>Monthly Average Daylight</h2>
+<strong>menu: </strong><span id=umenu></span><br />
+<strong>city: </strong><span id=ucity></span><br />
+<strong>user specified: </strong><span id=uspecified></span><br />
+<strong>other: </strong><span id=other></span><br />
+<br />
+<br />
+<table>
+  <thead><tr><th>Month</th><th>Average</th></tr></thead>
+  <tbody>
+    <tr><td>January</td><td id="m1"></td></tr>
+    <tr><td>February</td><td id="m2"></td></tr>
+    <tr><td>March</td><td id="m3"></td></tr>
+    <tr><td>April</td><td id="m4"></td></tr>
+    <tr><td>May</td><td id="m5"></td></tr>
+    <tr><td>June</td><td id="m6"></td></tr>
+    <tr><td>July</td><td id="m7"></td></tr>
+    <tr><td>August</td><td id="m8"></td></tr>
+    <tr><td>September</td><td id="m9"></td></tr>
+    <tr><td>October</td><td id="m10"></td></tr>
+    <tr><td>November</td><td id="m11"></td></tr>
+    <tr><td>December</td><td id="m12"></td></tr>
+  </tbody>
+</table>
+
 <script type="text/javascript" src="out/main.js"></script>
         </body>
     </html>
