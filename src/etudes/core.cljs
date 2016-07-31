@@ -58,8 +58,13 @@
 (defn daylight
 	"Given latitude and a Gregorian date, returns minutes of daylight."
 	[latitude date]
-	(let [[year month day] (map #(js/parseInt %) (str/split date #"-"))
-				julian (ordinal-day day month year)
+	(let [[year month day] (map #(js/parseInt %) (str/split date #"-"))]
+				(daylight-helper latitude day month year)))
+
+(defn daylight-helper
+	"Given latitude and a day month year, returns minutes of daylight."
+	[latitude day month year]
+	(let [julian (ordinal-day day month year)
 				r (radians latitude)
 	      part1 (.atan js/Math (* 0.9671396 (.tan js/Math (* .00860 (- julian 186)))))
 	      P (.asin js/Math (* .39796
@@ -69,16 +74,20 @@
 				                                       (.sin js/Math P)))
 			  denominator (* (.cos js/Math r) (.cos js/Math P))
 				D (- 24 (* 7.63944 (.acos js/Math (/ numerator denominator))))]
+				(println "julian: " julian)
 				(* 60 D)))
+
 (defn get-float [field]
 (.parseFloat js/window (.-value (dom/getElement field))))
 
 (defn testing
 	"Mostly bullshit"
 	[evt]
-	(let [gregorian (.parseFloat js/window (.-value (dom/getElement "gregorian")))
+	(let [gregorian (.-value (dom/getElement "gregorian"))
 		    latitude (get-float "latitude")
-				result (daylight latitude julian)]
+				result (daylight latitude gregorian)]
+				(println gregorian)
+				(println latitude)
 				(dom/setTextContent (dom/getElement "result") result)
 				))
 
