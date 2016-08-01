@@ -55,6 +55,13 @@
 (defn legal-month? [month]
 	(and (>= month 1) (<= month 12)))
 
+(defn days-in-month
+	"Given a month and year, return the number of days"
+	[month year]
+	(let [feb (if (leap-year? year) 29 28)
+				months [31 feb 31 30 31 30 31 31 30 31 30 31]]
+				(nth months month)))
+
 (defn daylight
 	"Given latitude and a Gregorian date, returns minutes of daylight."
 	[latitude date]
@@ -74,7 +81,6 @@
 				                                       (.sin js/Math P)))
 			  denominator (* (.cos js/Math r) (.cos js/Math P))
 				D (- 24 (* 7.63944 (.acos js/Math (/ numerator denominator))))]
-				(println "julian: " julian)
 				(* 60 D)))
 
 (defn get-float [field]
@@ -91,6 +97,12 @@
 				(dom/setTextContent (dom/getElement "result") result)
 				))
 
+(defn month-daylight
+	"Given a month and year call daylight helper a bunch of times"
+	[month year latitude]
+	(let [days (days-in-month month year)]
+		(/ (reduce + (map #(daylight-helper latitude % month year) (range 1 days))) days)))
+
 (defn monthsum
   "Event Handler for Month Summary of Daylight"
 	[evt]
@@ -104,8 +116,9 @@
 		(dom/setTextContent (dom/getElement "other") ulatitude)
 		(dotimes [month 12]
 			(let [monthstring (.toString (+ 1 month))
-			     elid (str/join "" ["m" monthstring])]
-			(dom/setTextContent (dom/getElement elid) elid)))
+			     elid (str/join "" ["m" monthstring])
+					 av (month-daylight month 2016 city)]
+			(dom/setTextContent (dom/getElement elid) av)))
 		)
 )
 
